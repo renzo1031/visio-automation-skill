@@ -26,11 +26,12 @@ Use this skill when the user wants:
 4. Prefer built-in Visio masters by `NameU`; only draw primitive shapes when no suitable master exists.
 5. Use `Page.Drop(master, x, y)` for nodes.
 6. Use a Visio `Dynamic connector` master plus `GlueToPos` for connections.
-7. Set connector cells for straight lines when requested:
+7. Default to Visio's right-angle/orthogonal connector routing. Use straight routing only when the user explicitly asks for straight lines, says the connectors should not be right-angle, or provides a reference image whose connector geometry is clearly straight.
+8. Set connector cells for straight lines only when requested:
    - `ShapeRouteStyle = 2`
    - `ConLineRouteExt = 1`
-8. Save the `.vsdx`, then verify by reading the opened document or reopening in `Visio.InvisibleApp`.
-9. Export a preview PNG when helpful and inspect it before reporting completion.
+9. Save the `.vsdx`, then verify by reading the opened document or reopening in `Visio.InvisibleApp`.
+10. Export a preview PNG when helpful and inspect it before reporting completion.
 
 ## Use The Bundled Helper Script
 
@@ -51,7 +52,9 @@ Useful functions:
 - `Find-VisioMasters`
 - `Set-VisioTextStyle`
 - `Set-VisioShapeFill`
+- `Connect-VisioShapesOrthogonal`
 - `Connect-VisioShapesStraight`
+- `Set-VisioConnectorStraight`
 - `Add-VisioLabel`
 - `Get-OpenVisioDocumentByPath`
 
@@ -137,7 +140,7 @@ Set-VisioShapeFill -Shape $user -Fill 'RGB(70,118,242)'
 Set-VisioTextStyle -Shape $user -Color 'RGB(255,255,255)' -Bold 1
 Set-VisioShapeFill -Shape $browse -Fill 'RGB(239,129,219)'
 
-Connect-VisioShapesStraight -Page $page -ConnectorMaster $connectorMaster -From $user -To $browse | Out-Null
+Connect-VisioShapesOrthogonal -Page $page -ConnectorMaster $connectorMaster -From $user -To $browse | Out-Null
 
 $doc.SaveAs('E:\path\diagram.vsdx')
 ```
@@ -150,6 +153,7 @@ Before claiming the diagram is complete, verify:
 - The document opens or is attached through ROT if already open.
 - Node count and connector count are plausible.
 - Connectors are `OneD` shapes.
+- Default connectors should use right-angle/orthogonal routing unless the user requested straight lines.
 - Straight connector requests have `ShapeRouteStyle = 2` and `ConLineRouteExt = 1`.
 - Connector endpoints remain glued; `BeginX` and `EndX` should usually contain glue formulas after connection.
 - A preview export visually matches the requested layout closely enough.
@@ -168,9 +172,13 @@ $connectors = @($page.Shapes) | Where-Object { $_.OneD -ne 0 }
 $straight = $connectors | Where-Object {
   $_.CellExistsU('ConLineRouteExt', 0) -ne 0 -and $_.CellsU('ConLineRouteExt').ResultIU -eq 1
 }
+$orthogonal = $connectors | Where-Object {
+  $_.CellExistsU('ConLineRouteExt', 0) -ne 0 -and $_.CellsU('ConLineRouteExt').ResultIU -eq 0
+}
 [pscustomobject]@{
   Shapes = $page.Shapes.Count
   Connectors = $connectors.Count
+  OrthogonalConnectors = $orthogonal.Count
   StraightConnectors = $straight.Count
 }
 ```

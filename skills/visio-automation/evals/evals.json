@@ -3,13 +3,14 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "用可见模式控制 Visio，画一个登录流程图：用户 -> 登录 -> 校验 -> 成功进入首页 / 失败返回登录。要求使用 Visio 自带形状和动态连接线，连接线是直线。",
-      "expected_output": "Creates a .vsdx file through visible Visio COM automation, uses built-in Visio masters, and verifies straight dynamic connectors.",
+      "prompt": "用可见模式控制 Visio，画一个登录流程图：用户 -> 登录 -> 校验 -> 成功进入首页 / 失败返回登录。要求使用 Visio 自带形状和动态连接线。",
+      "expected_output": "Creates a .vsdx file through visible Visio COM automation, uses built-in Visio masters, and verifies default right-angle/orthogonal dynamic connectors.",
       "files": [],
       "assertions": [
         "The response or generated script uses Visio.Application for visible mode.",
         "The workflow opens a Visio stencil and drops masters rather than generating raw .vsdx XML.",
-        "The verification checks OneD connectors and straight routing cells."
+        "The workflow defaults to right-angle/orthogonal dynamic connectors when the user did not explicitly request straight lines.",
+        "The verification checks OneD connectors and orthogonal routing cells."
       ]
     },
     {

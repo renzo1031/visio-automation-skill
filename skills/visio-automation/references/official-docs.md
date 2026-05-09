@@ -34,7 +34,9 @@ Connector values used in the local workflow:
 
 | Cell | Value | Meaning |
 | --- | ---: | --- |
+| `ShapeRouteStyle` | `0` | Default/page routing behavior, used for normal right-angle dynamic connectors |
 | `ShapeRouteStyle` | `2` | Straight route (`visLORouteStraight`) |
+| `ConLineRouteExt` | `0` | Default right-angle dynamic connector appearance |
 | `ConLineRouteExt` | `1` | Straight connector appearance (`visLORouteExtStraight`) |
 | `ConLineRouteExt` | `2` | Curved connector appearance (`visLORouteExtNURBS`) |
 | `EndArrow` | `0` | No arrowhead |

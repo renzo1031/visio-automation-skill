@@ -7,7 +7,7 @@
 - 使用可见模式控制真实 Visio 窗口。
 - 从 Visio 内置 stencil 中拖放 master shape，而不是手写 `.vsdx` XML。
 - 创建原生动态连接线，并用 `GlueToPos` 胶合到 shape。
-- 将连接线设置为直线：`ShapeRouteStyle = 2`，`ConLineRouteExt = 1`。
+- 默认使用直角/正交动态连接线，只有用户明确要求直线时才设置 `ShapeRouteStyle = 2` 和 `ConLineRouteExt = 1`。
 - 搜索本机 Visio stencil/master，解决 skill 文档里没有列出的图形。
 - 生成最小 proof `.vsdx` 并导出 PNG 预览。
 
@@ -50,6 +50,7 @@ Copy-Item -Recurse -Force .\skills\visio-automation "$env:USERPROFILE\.codex\ski
 - “不要生成死的文件，要用 Visio 自带形状和连接线”
 - “把截图复刻成可编辑 `.vsdx`”
 - “把 Visio 里的连接线改成直线”
+- “画普通流程图，连接线按 Visio 默认直角走线”
 - “查找 Visio 里有没有某个 master”
 
 ## 自测
@@ -64,7 +65,8 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File .\skills\visio-automation\scripts\
 
 - 已知 DFD master 生成 `.vsdx`
 - 动态连接线是否为 `OneD`
-- 直线连接线 ShapeSheet 参数是否正确
+- 默认直角/正交连接线 ShapeSheet 参数是否正确
+- 显式直线连接线 ShapeSheet 参数是否正确
 - 连接端点是否胶合
 - 文档中未列出的 BPMN `Gateway` master 是否可通过本机 stencil 搜索发现并落图
 
@@ -75,9 +77,12 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File .\skills\visio-automation\scripts\
 ```text
 helperLoaded: True
 known_passed: True
+explicit_straight_passed: True
 recovery_passed: True
-known_connector_route: 2
-known_connector_ext: 1
+known_connector_route: 0
+known_connector_ext: 0
+straight_connector_route: 2
+straight_connector_ext: 1
 recovery_master: Gateway
 ```
 

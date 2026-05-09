@@ -179,7 +179,7 @@ function Set-VisioShapeFill {
   $Shape.CellsU('LineWeight').FormulaU = $LineWeight
 }
 
-function Connect-VisioShapesStraight {
+function Connect-VisioShapesOrthogonal {
   param(
     [Parameter(Mandatory = $true)] $Page,
     [Parameter(Mandatory = $true)] $ConnectorMaster,
@@ -196,11 +196,45 @@ function Connect-VisioShapesStraight {
   $connector = $Page.Drop($ConnectorMaster, 0, 0)
   $connector.CellsU('BeginX').GlueToPos($From, $FromX, $FromY)
   $connector.CellsU('EndX').GlueToPos($To, $ToX, $ToY)
-  $connector.CellsU('ShapeRouteStyle').FormulaU = '2'
-  $connector.CellsU('ConLineRouteExt').FormulaU = '1'
+  # Default to Visio's orthogonal/right-angle dynamic connector behavior.
+  if ($connector.CellExistsU('ShapeRouteStyle', 0) -ne 0) {
+    $connector.CellsU('ShapeRouteStyle').FormulaU = '0'
+  }
+  if ($connector.CellExistsU('ConLineRouteExt', 0) -ne 0) {
+    $connector.CellsU('ConLineRouteExt').FormulaU = '0'
+  }
   $connector.CellsU('LineColor').FormulaU = $LineColor
   $connector.CellsU('LineWeight').FormulaU = '1 pt'
   $connector.CellsU('EndArrow').FormulaU = "$EndArrow"
+  return $connector
+}
+
+function Set-VisioConnectorStraight {
+  param(
+    [Parameter(Mandatory = $true)] $Connector
+  )
+
+  $Connector.CellsU('ShapeRouteStyle').FormulaU = '2'
+  $Connector.CellsU('ConLineRouteExt').FormulaU = '1'
+  return $Connector
+}
+
+function Connect-VisioShapesStraight {
+  param(
+    [Parameter(Mandatory = $true)] $Page,
+    [Parameter(Mandatory = $true)] $ConnectorMaster,
+    [Parameter(Mandatory = $true)] $From,
+    [Parameter(Mandatory = $true)] $To,
+    [double] $FromX = 1.0,
+    [double] $FromY = 0.5,
+    [double] $ToX = 0.0,
+    [double] $ToY = 0.5,
+    [int] $EndArrow = 4,
+    [string] $LineColor = 'RGB(45,45,45)'
+  )
+
+  $connector = Connect-VisioShapesOrthogonal -Page $Page -ConnectorMaster $ConnectorMaster -From $From -To $To -FromX $FromX -FromY $FromY -ToX $ToX -ToY $ToY -EndArrow $EndArrow -LineColor $LineColor
+  Set-VisioConnectorStraight -Connector $connector | Out-Null
   return $connector
 }
 

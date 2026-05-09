@@ -12,6 +12,7 @@ $results = [ordered]@{
   outputDirectory = $OutputDirectory
   helperLoaded = $true
   knownMasterTest = $null
+  explicitStraightTest = $null
   recoveryDiscoveryTest = $null
   files = @()
 }
@@ -27,7 +28,7 @@ function Assert-Condition {
   }
 }
 
-# Test 1: create an editable Visio file from known built-in masters and verify straight glued connector.
+# Test 1: create an editable Visio file from known built-in masters and verify default orthogonal glued connector.
 $knownFile = Join-Path $OutputDirectory 'known-data-flow-smoke.vsdx'
 $knownPreview = Join-Path $OutputDirectory 'known-data-flow-smoke.png'
 $visio = New-InvisibleVisioApplication
@@ -48,15 +49,15 @@ try {
   $process.Text = '处理'
   Set-VisioShapeFill -Shape $process -Fill 'RGB(239,129,219)'
 
-  $connector = Connect-VisioShapesStraight -Page $page -ConnectorMaster $connectorMaster -From $user -To $process
+  $connector = Connect-VisioShapesOrthogonal -Page $page -ConnectorMaster $connectorMaster -From $user -To $process
 
   $doc.SaveAs($knownFile)
   $page.Export($knownPreview)
 
   Assert-Condition -Condition (Test-Path $knownFile) -Message 'Known master .vsdx file was not created.'
   Assert-Condition -Condition ($connector.OneD -ne 0) -Message 'Connector is not a OneD dynamic connector.'
-  Assert-Condition -Condition ($connector.CellsU('ShapeRouteStyle').ResultIU -eq 2) -Message 'ShapeRouteStyle was not set to straight routing.'
-  Assert-Condition -Condition ($connector.CellsU('ConLineRouteExt').ResultIU -eq 1) -Message 'ConLineRouteExt was not set to straight.'
+  Assert-Condition -Condition ($connector.CellsU('ShapeRouteStyle').ResultIU -eq 0) -Message 'ShapeRouteStyle was not left at default orthogonal routing.'
+  Assert-Condition -Condition ($connector.CellsU('ConLineRouteExt').ResultIU -eq 0) -Message 'ConLineRouteExt was not left at default orthogonal routing.'
   Assert-Condition -Condition ($connector.CellsU('BeginX').FormulaU -match 'Glue|GUARD|Connections|Pin') -Message 'BeginX does not appear to be glued.'
   Assert-Condition -Condition ($connector.CellsU('EndX').FormulaU -match 'Glue|GUARD|Connections|Pin') -Message 'EndX does not appear to be glued.'
 
@@ -73,6 +74,34 @@ try {
   }
   $results.files += $knownFile
   $results.files += $knownPreview
+  $doc.Close()
+} finally {
+  $visio.Quit()
+}
+
+# Test 1b: explicitly requested straight connectors still work.
+$straightFile = Join-Path $OutputDirectory 'explicit-straight-smoke.vsdx'
+$visio = New-InvisibleVisioApplication
+try {
+  $doc = $visio.Documents.Add('')
+  $page = $visio.ActivePage
+  $stencil = Open-VisioStencilReadOnly -Visio $visio -StencilNameOrPath 'DATFLO_M.VSSX'
+  $externalMaster = $stencil.Masters.ItemU('External interactor')
+  $processMaster = $stencil.Masters.ItemU('Data process')
+  $connectorMaster = $stencil.Masters.ItemU('Dynamic connector')
+  $from = $page.Drop($externalMaster, 1.0, 2.0)
+  $to = $page.Drop($processMaster, 3.2, 2.0)
+  $straightConnector = Connect-VisioShapesStraight -Page $page -ConnectorMaster $connectorMaster -From $from -To $to
+  $doc.SaveAs($straightFile)
+  Assert-Condition -Condition ($straightConnector.CellsU('ShapeRouteStyle').ResultIU -eq 2) -Message 'Explicit straight connector did not set ShapeRouteStyle to 2.'
+  Assert-Condition -Condition ($straightConnector.CellsU('ConLineRouteExt').ResultIU -eq 1) -Message 'Explicit straight connector did not set ConLineRouteExt to 1.'
+  $results.explicitStraightTest = [ordered]@{
+    passed = $true
+    file = $straightFile
+    shapeRouteStyle = $straightConnector.CellsU('ShapeRouteStyle').FormulaU
+    conLineRouteExt = $straightConnector.CellsU('ConLineRouteExt').FormulaU
+  }
+  $results.files += $straightFile
   $doc.Close()
 } finally {
   $visio.Quit()
