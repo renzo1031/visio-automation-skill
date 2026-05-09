@@ -1,11 +1,12 @@
 # Visio Automation Skill
 
-这是一个用于让 Codex 通过 Microsoft Visio COM 自动化直接控制 Visio 的 skill。它适合需要 `.vsdx` 可编辑文件、Visio 自带 stencil/master、动态连接线和 ShapeSheet 参数验证的场景。
+这是一个用于让 Codex 通过 Microsoft Visio COM 自动化直接控制 Visio 的 skill。它适合任何需要 `.vsdx` 可编辑文件、Visio 自带 stencil/master、动态连接线和 ShapeSheet 参数验证的场景，而不是只服务某一种流程图模板。
 
 ## 能力
 
 - 使用可见模式控制真实 Visio 窗口。
 - 从 Visio 内置 stencil 中拖放 master shape，而不是手写 `.vsdx` XML。
+- 先判断图的语义类型，再选择合适的 stencil/master；适用于流程图、BPMN、UML、网络拓扑、组织结构、DFD、VSM、截图复刻和已有 `.vsdx` 修改。
 - 创建原生动态连接线，并用 `GlueToPos` 胶合到 shape。
 - 默认使用直角/正交动态连接线，只有用户明确要求直线时才设置 `ShapeRouteStyle = 2` 和 `ConLineRouteExt = 1`。
 - 搜索本机 Visio stencil/master，解决 skill 文档里没有列出的图形。
@@ -47,8 +48,10 @@ Copy-Item -Recurse -Force .\skills\visio-automation "$env:USERPROFILE\.codex\ski
 当用户提出类似请求时应触发该 skill：
 
 - “用 Visio 画这个流程图”
+- “用 Visio 画 BPMN / UML / 网络拓扑 / 组织结构 / 数据流图”
 - “不要生成死的文件，要用 Visio 自带形状和连接线”
 - “把截图复刻成可编辑 `.vsdx`”
+- “这个图的 master 文档里没写，自己去 Visio 里找”
 - “把 Visio 里的连接线改成直线”
 - “画普通流程图，连接线按 Visio 默认直角走线”
 - “查找 Visio 里有没有某个 master”
@@ -69,6 +72,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File .\skills\visio-automation\scripts\
 - 显式直线连接线 ShapeSheet 参数是否正确
 - 连接端点是否胶合
 - 文档中未列出的 BPMN `Gateway` master 是否可通过本机 stencil 搜索发现并落图
+- eval 用例覆盖通用流程图、语义化截图复刻、已有文件连接线修改、未知图类型 master discovery
 
 ## 已验证结果
 
@@ -95,4 +99,4 @@ recovery_master: Gateway
 
 ## 说明
 
-这个 skill 优先使用 Visio 原生能力。只有在本机没有合适 stencil/master 时，才建议退回到基础 shape 拼装，并且应在结果中说明该 fallback。
+这个 skill 优先使用 Visio 原生能力。不要把示例中的 DFD、BPMN 或某个截图复刻当成固定模板；后续任务应先识别图的语义类型，再选择或发现合适的 Visio stencil/master。只有在本机没有合适 stencil/master 时，才建议退回到基础 shape 拼装，并且应在结果中说明该 fallback。

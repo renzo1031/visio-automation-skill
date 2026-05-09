@@ -2,6 +2,26 @@
 
 This catalog records Visio stencils and master names that were verified on the local Windows machine. Prefer `NameU` in scripts because it is language-stable across localized Visio installs.
 
+## General Selection Rule
+
+Use this catalog as a starting point, not as the full universe of Visio shapes. For any user request:
+
+1. Classify the diagram by meaning: flowchart, BPMN, DFD, UML, network/cloud, org chart, VSM, screenshot replication, or existing-file edit.
+2. Prefer the most semantic stencil/master family. For example, use BPMN `Gateway` for a BPMN gateway, not a basic diamond.
+3. If the requested family or master is not listed here, run `Find-VisioMasters` with domain terms and a `PreferredStencilRegex`.
+4. Verify a newly discovered master by dropping it into a small Visio proof document before using it in the final diagram.
+5. Add reusable verified discoveries to this catalog.
+
+Useful discovery term patterns:
+
+| Diagram family | Query examples | PreferredStencilRegex examples |
+| --- | --- | --- |
+| UML / software | `Class|Component|Actor|Use Case|Lifeline|Interface` | `UML|SOFTWARE` |
+| Network / infrastructure | `Router|Switch|Server|Firewall|Cloud|Database` | `NET|NETWORK|CLOUD|AZURE|AWS` |
+| Org chart | `Position|Manager|Executive|Assistant|Org` | `ORG` |
+| Engineering / floor plan | `Door|Wall|Equipment|Rack|Pump|Valve` | `FLOOR|ENGINEERING|ELECTRICAL|PIPING` |
+| Generic containers | `Container|Group|Lane|Pool|Boundary` | `BPMN|BASFLO|CROSS` |
+
 ## Data Flow Diagrams
 
 Use this family when the user wants a data-flow style diagram, business process diagram with external actors, data stores, and directed flows.

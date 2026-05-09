@@ -3,24 +3,26 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "用可见模式控制 Visio，画一个登录流程图：用户 -> 登录 -> 校验 -> 成功进入首页 / 失败返回登录。要求使用 Visio 自带形状和动态连接线。",
-      "expected_output": "Creates a .vsdx file through visible Visio COM automation, uses built-in Visio masters, and verifies default right-angle/orthogonal dynamic connectors.",
+      "prompt": "用可见模式控制 Visio，画一个通用审批流程：提交申请 -> 部门审批 -> 金额是否超过阈值 -> 财务复核 / 直接归档 -> 结束。要求使用 Visio 自带形状和动态连接线。",
+      "expected_output": "Creates a .vsdx file through visible Visio COM automation, classifies this as a generic flowchart, uses built-in flowchart masters, and verifies default right-angle/orthogonal dynamic connectors.",
       "files": [],
       "assertions": [
         "The response or generated script uses Visio.Application for visible mode.",
-        "The workflow opens a Visio stencil and drops masters rather than generating raw .vsdx XML.",
+        "The workflow classifies the request as a generic flowchart and selects a flowchart stencil such as BASFLO_M.VSSX, BASFLO_U.VSSX, or SSFLOW_M.VSSX.",
+        "The workflow opens a Visio stencil and drops masters rather than generating raw .vsdx XML or drawing only primitive rectangles.",
         "The workflow defaults to right-angle/orthogonal dynamic connectors when the user did not explicitly request straight lines.",
         "The verification checks OneD connectors and orthogonal routing cells."
       ]
     },
     {
       "id": 2,
-      "prompt": "把我给的 boardmix 截图复刻成可编辑 Visio 图，蓝色矩形是外部角色，粉色圆形是处理，黄色数据存储块用 Visio 的数据存储形状，所有箭头都要能随形状移动。",
-      "expected_output": "Chooses data-flow stencils such as DATFLO_M.VSSX, uses NameU masters, glues dynamic connector endpoints, saves .vsdx, and exports a preview.",
+      "prompt": "把我给的白板截图复刻成可编辑 Visio 图：里面混合了系统、人工步骤、数据库和外部接口。不要只照着颜色画，先按图形含义选择 Visio 自带 master，所有箭头都要能随形状移动。",
+      "expected_output": "Classifies screenshot elements by semantic meaning, chooses suitable built-in Visio stencils/masters rather than overfitting to one diagram family, glues connector endpoints, saves .vsdx, and exports a preview.",
       "files": [],
       "assertions": [
-        "The solution selects DATFLO_M.VSSX or an equivalent DFD stencil when available.",
-        "It uses built-in Data process, External interactor, Data store, and Dynamic connector masters by NameU.",
+        "The solution identifies semantic element types before selecting shapes.",
+        "It uses built-in Visio masters by NameU when suitable and uses basic shapes only for elements without semantic masters.",
+        "It glues dynamic connector endpoints so arrows move with shapes.",
         "It exports or otherwise verifies a visual preview before claiming completion."
       ]
     },
@@ -37,12 +39,13 @@
     },
     {
       "id": 4,
-      "prompt": "帮我用 Visio 画一个 BPMN 流程，但你的技能文档里没有列 BPMN 的 master。请自己查找可用 master，验证后补充到技能资料里。",
-      "expected_output": "Runs local stencil/master discovery, finds BPMN_M.VSSX and Gateway/Task/Event masters, creates a tiny proof .vsdx, and records reusable discoveries in the reference catalog.",
+      "prompt": "帮我用 Visio 画一个我没在技能文档里列过的图，例如 UML 组件图或网络拓扑。请不要猜基础矩形，先自己查找可用 stencil/master，验证后再使用。",
+      "expected_output": "Runs local stencil/master discovery with domain-specific search terms, creates a tiny proof .vsdx with a discovered master, and records reusable discoveries in the reference catalog when useful.",
       "files": [],
       "assertions": [
         "The workflow searches installed Visio stencils instead of giving up.",
-        "It verifies a discovered BPMN master by dropping it into a real Visio document.",
+        "It uses domain-specific query terms or PreferredStencilRegex instead of broad unfiltered discovery whenever possible.",
+        "It verifies a discovered master by dropping it into a real Visio document.",
         "It updates the skill reference catalog with verified master names."
       ]
     }
