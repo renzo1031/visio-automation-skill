@@ -1,0 +1,17 @@
+# Local generated Visio outputs
+*.vsdx
+*.vsd
+*.vsdm
+*.vsd?
+*.png
+
+# Local test outputs
+visio-automation-skill-test/
+
+# Local scratch files
+debug-*.ps1
+.playwright-mcp/
+
+# OS/editor noise
+Thumbs.db
+.DS_Store

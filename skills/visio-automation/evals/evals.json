@@ -1,0 +1,49 @@
+{
+  "skill_name": "visio-automation",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "用可见模式控制 Visio，画一个登录流程图：用户 -> 登录 -> 校验 -> 成功进入首页 / 失败返回登录。要求使用 Visio 自带形状和动态连接线，连接线是直线。",
+      "expected_output": "Creates a .vsdx file through visible Visio COM automation, uses built-in Visio masters, and verifies straight dynamic connectors.",
+      "files": [],
+      "assertions": [
+        "The response or generated script uses Visio.Application for visible mode.",
+        "The workflow opens a Visio stencil and drops masters rather than generating raw .vsdx XML.",
+        "The verification checks OneD connectors and straight routing cells."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "把我给的 boardmix 截图复刻成可编辑 Visio 图，蓝色矩形是外部角色，粉色圆形是处理，黄色数据存储块用 Visio 的数据存储形状，所有箭头都要能随形状移动。",
+      "expected_output": "Chooses data-flow stencils such as DATFLO_M.VSSX, uses NameU masters, glues dynamic connector endpoints, saves .vsdx, and exports a preview.",
+      "files": [],
+      "assertions": [
+        "The solution selects DATFLO_M.VSSX or an equivalent DFD stencil when available.",
+        "It uses built-in Data process, External interactor, Data store, and Dynamic connector masters by NameU.",
+        "It exports or otherwise verifies a visual preview before claiming completion."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "我已经打开了一个 .vsdx 文件，请把里面所有连接线从直角改成直线，不要关闭我的 Visio 窗口。",
+      "expected_output": "Attaches to the open Visio document through ROT when locked, updates ShapeRouteStyle and ConLineRouteExt on OneD connector shapes, saves without closing the visible window.",
+      "files": [],
+      "assertions": [
+        "The solution uses ROT attachment or equivalent if the file is already locked by visible Visio.",
+        "It updates only OneD connector shapes.",
+        "It saves the document without closing the user's visible Visio window."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "帮我用 Visio 画一个 BPMN 流程，但你的技能文档里没有列 BPMN 的 master。请自己查找可用 master，验证后补充到技能资料里。",
+      "expected_output": "Runs local stencil/master discovery, finds BPMN_M.VSSX and Gateway/Task/Event masters, creates a tiny proof .vsdx, and records reusable discoveries in the reference catalog.",
+      "files": [],
+      "assertions": [
+        "The workflow searches installed Visio stencils instead of giving up.",
+        "It verifies a discovered BPMN master by dropping it into a real Visio document.",
+        "It updates the skill reference catalog with verified master names."
+      ]
+    }
+  ]
+}
