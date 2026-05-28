@@ -1,6 +1,6 @@
 ---
 name: visio-automation
-description: Use whenever the user wants Codex to control Microsoft Visio directly for any editable diagram: create or modify .vsdx files, choose built-in stencils/masters/shapes/connectors, replicate screenshots or whiteboards, discover missing masters, fix connector routing/gluing, or avoid non-native generated diagrams. Strongly prefer this skill for Visio, .vsdx, stencil, master, ShapeSheet, dynamic connector, flowchart, BPMN, UML, network, org chart, DFD, VSM, or "use Visio's own shapes".
+description: "Use whenever the user wants Codex to control Microsoft Visio directly for any editable diagram: create or modify .vsdx files, choose built-in stencils/masters/shapes/connectors, replicate screenshots or whiteboards, discover missing masters, fix connector routing/gluing, or avoid non-native generated diagrams. Strongly prefer this skill for Visio, .vsdx, stencil, master, ShapeSheet, dynamic connector, flowchart, BPMN, UML, network, org chart, DFD, VSM, or \"use Visio's own shapes\"."
 ---
 
 # Visio Automation
@@ -224,3 +224,17 @@ $orthogonal = $connectors | Where-Object {
 - Do not close the user's visible Visio window unless they explicitly ask.
 - Avoid generating raw `.vsdx` XML for editable diagrams. It often lacks the native master/connector behavior the user cares about.
 - Keep the PowerShell script used for a diagram in the workspace when future edits are likely.
+
+## COM Stability Notes
+
+Use these guardrails when Visio automation hangs or silently stops after creating some shapes:
+
+- Add progress logging around every Visio COM call first. Log before/after shape creation, text assignment, ShapeSheet cell writes, connector drop/glue, save, and export so the exact blocking operation is visible.
+- Close only background Visio processes with an empty `MainWindowTitle` before reruns. Do not kill a visible user document.
+- Avoid `FillTransparency` unless a tiny proof file confirms it works on the local Visio install. Some installations can hang when this ShapeSheet cell is set through COM.
+- Avoid returning Visio `Shape` or connector COM objects from PowerShell functions. PowerShell can enumerate or inspect COM objects while assigning/returning them, which may hang. Prefer doing all operations on the shape inside the function, or store only primitive IDs such as `Shape.ID`.
+- If a later operation needs a shape, pass a stable shape name/ID into the helper and call `Page.Shapes.ItemFromID(...)` inside the same helper immediately before `GlueToPos` or styling. Avoid storing COM shape objects in hashtables for later reuse.
+- When a shape is created only for decoration or labels and does not need later references, provide a no-track path so helper code does not read `Shape.ID` or store the COM object.
+- Use `$visio.ConnectorToolDataObject` when localized stencils or missing `Dynamic connector` masters are causing friction. It still creates native one-dimensional dynamic connectors that can be glued with `GlueToPos`.
+- If `Page.Export($pngPath)` hangs after a large drawing session, save and close the `.vsdx`, then launch a fresh PowerShell process with a new `Visio.InvisibleApp` instance to reopen the file and export the PNG.
+- Keep a tiny proof script for any suspicious ShapeSheet cell or connector behavior before adding it to the full diagram script.
