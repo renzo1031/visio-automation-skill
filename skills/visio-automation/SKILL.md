@@ -1,12 +1,16 @@
 ---
 name: visio-automation
 description: >-
-  Use whenever the user wants Codex to control Microsoft Visio directly for editable diagrams: create or modify .vsdx files, use built-in stencils/masters/native dynamic connectors, replicate screenshots or whiteboards, discover missing masters, fix connector routing/gluing, convert Mermaid or draw.io into Visio, inspect ShapeSheet behavior, or avoid non-native SVG/XML-only diagrams. Strongly prefer this skill for Visio, .vsdx, stencil, master, ShapeSheet, dynamic connector, flowchart, BPMN, UML, network, org chart, DFD, VSM, or "use Visio's own shapes".
+  Use when the user wants an AI agent to create, edit, convert, inspect, or repair editable Microsoft Visio diagrams with real Visio COM automation.
 ---
 
 # Visio Automation
 
 Create and modify diagrams by controlling real Microsoft Visio through COM automation. The target artifact is an editable `.vsdx` using built-in Visio masters, native dynamic connectors, glued endpoints, and ShapeSheet settings that survive manual editing.
+
+## Keywords
+
+Visio, `.vsdx`, Visio COM, stencil, master, `NameU`, ShapeSheet, Dynamic Connector, `GlueToPos`, connector routing, connector gluing, flowchart, BPMN, UML, network diagram, org chart, DFD, VSM, Mermaid, draw.io, screenshot reconstruction, whiteboard reconstruction, native editable diagrams.
 
 ## Default Rules
 
@@ -36,6 +40,8 @@ Always load the helper script instead of retyping COM boilerplate:
 ```powershell
 . "$env:USERPROFILE\.codex\skills\visio-automation\scripts\visio_helpers.ps1"
 ```
+
+For non-Codex agents, replace the `.codex\skills` segment with that agent's skills directory.
 
 Useful helpers include:
 
