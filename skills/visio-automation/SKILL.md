@@ -1,6 +1,7 @@
 ---
 name: visio-automation
-description: Use whenever the user wants Codex to control Microsoft Visio directly for editable diagrams: create or modify .vsdx files, use built-in stencils/masters/native dynamic connectors, replicate screenshots or whiteboards, discover missing masters, fix connector routing/gluing, convert Mermaid or draw.io into Visio, inspect ShapeSheet behavior, or avoid non-native SVG/XML-only diagrams. Strongly prefer this skill for Visio, .vsdx, stencil, master, ShapeSheet, dynamic connector, flowchart, BPMN, UML, network, org chart, DFD, VSM, or "use Visio's own shapes".
+description: >-
+  Use whenever the user wants Codex to control Microsoft Visio directly for editable diagrams: create or modify .vsdx files, use built-in stencils/masters/native dynamic connectors, replicate screenshots or whiteboards, discover missing masters, fix connector routing/gluing, convert Mermaid or draw.io into Visio, inspect ShapeSheet behavior, or avoid non-native SVG/XML-only diagrams. Strongly prefer this skill for Visio, .vsdx, stencil, master, ShapeSheet, dynamic connector, flowchart, BPMN, UML, network, org chart, DFD, VSM, or "use Visio's own shapes".
 ---
 
 # Visio Automation
