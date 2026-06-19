@@ -49,18 +49,36 @@
 4. 保存成可编辑 `.vsdx`
 5. 必要时导出预览图给你检查
 
+## 流程示意
+
+<div align="center">
+  <img src="assets/visio-automation-workflow.svg" alt="Visio 自动化流程示意">
+</div>
+
 ## 支持的图
 
-| 图类型 | 适合的请求 |
-| --- | --- |
-| 流程图 | 审批、报销、入职、操作流程、工单流转 |
-| BPMN | 业务流程、网关、任务、事件、泳道 |
-| UML / 时序图 | 类图、组件图、调用链、启动流程、对象交互 |
-| 网络 / 架构图 | 微服务、云资源、网络拓扑、系统依赖 |
-| DFD / 数据流 | 数据输入、处理、存储、输出 |
-| VSM | 价值流、库存、生产、看板、物流 |
-| 组织结构图 | 汇报关系、部门结构、岗位层级 |
-| 截图复刻 | 白板、已有图、PPT 截图、手绘草图 |
+<div align="center">
+
+<table>
+  <thead>
+    <tr>
+      <th align="center">图类型</th>
+      <th align="center">适合的请求</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td align="center">流程图</td><td>审批、报销、入职、操作流程、工单流转</td></tr>
+    <tr><td align="center">BPMN</td><td>业务流程、网关、任务、事件、泳道</td></tr>
+    <tr><td align="center">UML / 时序图</td><td>类图、组件图、调用链、启动流程、对象交互</td></tr>
+    <tr><td align="center">网络 / 架构图</td><td>微服务、云资源、网络拓扑、系统依赖</td></tr>
+    <tr><td align="center">DFD / 数据流</td><td>数据输入、处理、存储、输出</td></tr>
+    <tr><td align="center">VSM</td><td>价值流、库存、生产、看板、物流</td></tr>
+    <tr><td align="center">组织结构图</td><td>汇报关系、部门结构、岗位层级</td></tr>
+    <tr><td align="center">截图复刻</td><td>白板、已有图、PPT 截图、手绘草图</td></tr>
+  </tbody>
+</table>
+
+</div>
 
 ## 支持的输入
 
@@ -81,13 +99,28 @@
 
 这些预览都来自实际生成的 Visio 文件，原始输出仍然是可编辑 `.vsdx`。
 
-| 自然语言报销流程 | BPMN 审批流程 |
-| --- | --- |
-| <img src="assets/previews/expense-flow.png" alt="自然语言报销流程预览" width="420"> | <img src="assets/previews/bpmn-approval.png" alt="BPMN 审批流程预览" width="420"> |
+<div align="center">
 
-| 网络架构图 | Tomcat 启动时序图 |
-| --- | --- |
-| <img src="assets/previews/network-architecture.png" alt="网络架构图预览" width="420"> | <img src="assets/previews/tomcat-startup-sequence.png" alt="Tomcat 启动时序图预览" width="420"> |
+<table>
+  <tr>
+    <th align="center">自然语言报销流程</th>
+    <th align="center">BPMN 审批流程</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/previews/expense-flow.png" alt="自然语言报销流程预览" width="420"></td>
+    <td align="center"><img src="assets/previews/bpmn-approval.png" alt="BPMN 审批流程预览" width="420"></td>
+  </tr>
+  <tr>
+    <th align="center">网络架构图</th>
+    <th align="center">Tomcat 启动时序图</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/previews/network-architecture.png" alt="网络架构图预览" width="420"></td>
+    <td align="center"><img src="assets/previews/tomcat-startup-sequence.png" alt="Tomcat 启动时序图预览" width="420"></td>
+  </tr>
+</table>
+
+</div>
 
 ## 连接线处理
 
@@ -98,12 +131,6 @@
 - 截图复刻：尽量保留原图的直线、折线、曲线和连接位置。
 - 新建图：优先选择更干净、少交叉、少绕路的路径。
 - 复杂图：会尽量避开节点、文字、泳道、容器边界和已有连接线。
-
-## 流程示意
-
-<div align="center">
-  <img src="assets/visio-automation-workflow.svg" alt="Visio 自动化流程示意">
-</div>
 
 ## 安装
 
