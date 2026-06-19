@@ -134,7 +134,17 @@
 
 ## 安装
 
-### 方式一：让 AI 自然语言安装
+### 方式一：命令安装
+
+在终端里运行：
+
+```powershell
+npx skills add renzo1031/visio-automation-skill
+```
+
+安装完成后，你就可以直接说“用 Visio 画一个流程图”这类请求。
+
+### 方式二：让 AI 自然语言安装
 
 把这个仓库交给 Codex，然后直接说：
 
@@ -144,7 +154,7 @@
 
 Codex 会把 `skills/visio-automation` 复制到本机 skills 目录。安装完成后，你就可以直接说“用 Visio 画一个流程图”这类请求。
 
-### 方式二：手动安装
+### 方式三：手动安装
 
 把 Skill 复制到 Codex 的 skills 目录即可。
 
@@ -166,3 +176,7 @@ Copy-Item -Recurse -Force .\skills\visio-automation "$env:USERPROFILE\.codex\ski
 - 如果你有截图、Mermaid、draw.io 或 JSON，直接给它，skill 会尽量走原生 Visio 路径。
 - 如果你希望先看着画出来，默认就是前台可见模式。
 - 如果你对连接线位置有明确要求，可以直接说“从底部连到顶部”“不要绕外圈”“尽量还原截图”。
+
+## License
+
+This project is released under the MIT License.
