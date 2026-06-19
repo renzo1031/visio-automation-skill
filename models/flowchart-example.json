@@ -1,0 +1,68 @@
+{
+  "diagramType": "flowchart",
+  "page": {
+    "width": 6.5,
+    "height": 3.0
+  },
+  "nodes": [
+    {
+      "id": "start",
+      "text": "开始",
+      "semanticType": "start",
+      "stencil": "BASFLO_M.VSSX",
+      "x": 1.2,
+      "y": 1.5,
+      "width": 1.2,
+      "height": 0.55
+    },
+    {
+      "id": "process",
+      "text": "处理",
+      "semanticType": "process",
+      "stencil": "BASFLO_M.VSSX",
+      "x": 3.4,
+      "y": 1.5,
+      "width": 1.5,
+      "height": 0.6
+    },
+    {
+      "id": "decision",
+      "text": "通过?",
+      "semanticType": "decision",
+      "stencil": "BASFLO_M.VSSX",
+      "x": 5.4,
+      "y": 1.5,
+      "width": 1.2,
+      "height": 0.8
+    }
+  ],
+  "edges": [
+    {
+      "from": "start",
+      "to": "process",
+      "routeType": "orthogonal",
+      "connector": "Dynamic connector",
+      "stencil": "BASFLO_M.VSSX"
+    },
+    {
+      "from": "process",
+      "to": "decision",
+      "text": "检查",
+      "routeType": "straight",
+      "connector": "Dynamic connector",
+      "stencil": "BASFLO_M.VSSX"
+    },
+    {
+      "from": "decision",
+      "to": "process",
+      "text": "退回",
+      "routeType": "curved",
+      "connector": "Dynamic connector",
+      "stencil": "BASFLO_M.VSSX",
+      "fromX": 0.5,
+      "fromY": 0.0,
+      "toX": 0.5,
+      "toY": 0.0
+    }
+  ]
+}

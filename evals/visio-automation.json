@@ -3,11 +3,11 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "用可见模式控制 Visio，画一个通用审批流程：提交申请 -> 部门审批 -> 金额是否超过阈值 -> 财务复核 / 直接归档 -> 结束。要求使用 Visio 自带形状和动态连接线。",
-      "expected_output": "Creates a .vsdx file through visible Visio COM automation, classifies this as a generic flowchart, uses built-in flowchart masters, and verifies default right-angle/orthogonal dynamic connectors.",
+      "prompt": "用 Visio 画一个通用审批流程：提交申请 -> 部门审批 -> 金额是否超过阈值 -> 财务复核 / 直接归档 -> 结束。要求使用 Visio 自带形状和动态连接线。",
+      "expected_output": "Defaults to foreground visible Visio COM automation even though the prompt does not explicitly request visible mode, creates a .vsdx file, classifies this as a generic flowchart, uses built-in flowchart masters, and verifies default right-angle/orthogonal dynamic connectors.",
       "files": [],
       "assertions": [
-        "The response or generated script uses Visio.Application for visible mode.",
+        "The response or generated script defaults to New-VisibleVisioApplication or Visio.Application with Visible=true when the user does not explicitly request background mode.",
         "The workflow classifies the request as a generic flowchart and selects a flowchart stencil such as BASFLO_M.VSSX, BASFLO_U.VSSX, or SSFLOW_M.VSSX.",
         "The workflow opens a Visio stencil and drops masters rather than generating raw .vsdx XML or drawing only primitive rectangles.",
         "The workflow defaults to right-angle/orthogonal dynamic connectors when the user did not explicitly request straight lines.",
@@ -47,6 +47,32 @@
         "It uses domain-specific query terms or PreferredStencilRegex instead of broad unfiltered discovery whenever possible.",
         "It verifies a discovered master by dropping it into a real Visio document.",
         "It updates the skill reference catalog with verified master names."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "我给你一张系统流程图截图，请最大限度复刻成可编辑 Visio：节点坐标和大小尽量贴近原图；图里有直角连接线、斜直线连接线和一条曲线箭头，必须按原图线型分别还原，端点要能随节点移动。",
+      "expected_output": "Builds an intermediate image reconstruction model with pixel-to-Visio coordinate mapping, recreates nodes with native Visio masters when possible, preserves orthogonal/straight/curved connector route types, glues endpoints, exports a preview, and compares it with the source image.",
+      "files": [],
+      "assertions": [
+        "The workflow creates or describes a pixel-to-Visio coordinate mapping before drawing.",
+        "It builds an intermediate model for nodes, connectors, route types, waypoints or control points, arrowheads, and labels.",
+        "It preserves right-angle connectors as orthogonal, straight connectors as straight, and curved connectors with ConLineRouteExt=2 or an equivalent native curved Visio connector.",
+        "It glues connector endpoints to relative positions on target shapes so arrows move with nodes.",
+        "It exports a preview PNG and compares the preview against the source image before claiming completion."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "我已经把截图识别结果整理成 JSON：里面有 source 图片尺寸、每个节点的 bounds、semanticType、文本，以及 connector 的 from/to、routeType、fromPoint/toPoint。请直接生成可编辑 Visio。",
+      "expected_output": "Uses Convert-ImageReconstructionToVisio or the equivalent structured image-to-visio pipeline, maps pixel bounds to Visio page coordinates, preserves connector route types and relative glue points, creates .vsdx and PNG preview.",
+      "files": [],
+      "assertions": [
+        "The workflow treats the JSON as the image reconstruction contract instead of asking for OCR/CV again.",
+        "It maps source pixel coordinates into Visio page coordinates.",
+        "It preserves orthogonal, straight, and curved connector route types.",
+        "It passes relative glue points through to the Visio connector helper.",
+        "It saves a .vsdx and exports a preview PNG."
       ]
     }
   ]

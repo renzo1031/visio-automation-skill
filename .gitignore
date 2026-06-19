@@ -7,10 +7,19 @@
 
 # Local test outputs
 visio-automation-skill-test/
+out/
+
+# Local runtime caches and generated indexes
+.cache/
+.codegraph/
+visio-master-index.json
+*.visio-master-index.json
+docs/
 
 # Local scratch files
 debug-*.ps1
 .playwright-mcp/
+.superpowers/
 
 # OS/editor noise
 Thumbs.db

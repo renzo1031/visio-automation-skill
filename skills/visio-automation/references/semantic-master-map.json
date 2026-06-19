@@ -1,0 +1,446 @@
+{
+  "$schema": "Semantic Master Map",
+  "version": 1,
+  "description": "Maps natural language terms (Chinese and English) to Visio stencil/master candidates. Used by Find-SemanticVisioMaster for intent-based shape discovery.",
+  "mappings": [
+    {
+      "terms": ["process", "流程", "处理", "步骤", "step", "task", "任务", "操作"],
+      "stencil": "BASFLO_M.VSSX",
+      "master": "Process",
+      "semanticType": "process",
+      "category": "flowchart",
+      "priority": 1
+    },
+    {
+      "terms": ["decision", "决策", "判定", "判断", "条件", "gateway", "网关", "分支"],
+      "stencil": "BASFLO_M.VSSX",
+      "master": "Decision",
+      "semanticType": "decision",
+      "category": "flowchart",
+      "priority": 1
+    },
+    {
+      "terms": ["start", "开始", "起始", "起点", "begin", "beginning", "初始化"],
+      "stencil": "BASFLO_M.VSSX",
+      "master": "Start/End",
+      "semanticType": "start",
+      "category": "flowchart",
+      "priority": 1
+    },
+    {
+      "terms": ["end", "结束", "终止", "终点", "stop", "finish", "完成"],
+      "stencil": "BASFLO_M.VSSX",
+      "master": "Start/End",
+      "semanticType": "end",
+      "category": "flowchart",
+      "priority": 1
+    },
+    {
+      "terms": ["database", "数据库", "存储", "data store", "数据存储", "db", "datastore"],
+      "stencil": "BASFLO_M.VSSX",
+      "master": "Database",
+      "semanticType": "database",
+      "category": "flowchart",
+      "priority": 1
+    },
+    {
+      "terms": ["document", "文档", "文件", "报告", "report", "paper"],
+      "stencil": "BASFLO_M.VSSX",
+      "master": "Document",
+      "semanticType": "document",
+      "category": "flowchart",
+      "priority": 1
+    },
+    {
+      "terms": ["subprocess", "子流程", "子过程", "子任务", "sub-process"],
+      "stencil": "BASFLO_M.VSSX",
+      "master": "Subprocess",
+      "semanticType": "process",
+      "category": "flowchart",
+      "priority": 2
+    },
+    {
+      "terms": ["data", "数据", "input", "输入", "output", "输出", "io"],
+      "stencil": "BASFLO_M.VSSX",
+      "master": "Data",
+      "semanticType": "process",
+      "category": "flowchart",
+      "priority": 2
+    },
+    {
+      "terms": ["external", "外部", "外部数据", "external data"],
+      "stencil": "BASFLO_M.VSSX",
+      "master": "External Data",
+      "semanticType": "process",
+      "category": "flowchart",
+      "priority": 2
+    },
+    {
+      "terms": ["connector", "连接线", "连接", "箭头", "arrow", "link", "flow", "流向"],
+      "stencil": "BASFLO_M.VSSX",
+      "master": "Dynamic connector",
+      "semanticType": "connector",
+      "category": "flowchart",
+      "priority": 1
+    },
+    {
+      "terms": ["bpmn task", "bpmn 任务", "bpmn活动", "activity", "活动"],
+      "stencil": "BPMN_M.VSSX",
+      "master": "Task",
+      "semanticType": "process",
+      "category": "bpmn",
+      "priority": 1
+    },
+    {
+      "terms": ["bpmn gateway", "bpmn 网关", "排他网关", "exclusive gateway", "并行网关", "parallel gateway"],
+      "stencil": "BPMN_M.VSSX",
+      "master": "Gateway",
+      "semanticType": "decision",
+      "category": "bpmn",
+      "priority": 1
+    },
+    {
+      "terms": ["bpmn start", "bpmn开始", "开始事件", "start event"],
+      "stencil": "BPMN_M.VSSX",
+      "master": "Start Event",
+      "semanticType": "start",
+      "category": "bpmn",
+      "priority": 1
+    },
+    {
+      "terms": ["bpmn end", "bpmn结束", "结束事件", "end event"],
+      "stencil": "BPMN_M.VSSX",
+      "master": "End Event",
+      "semanticType": "end",
+      "category": "bpmn",
+      "priority": 1
+    },
+    {
+      "terms": ["bpmn intermediate", "中间事件", "intermediate event"],
+      "stencil": "BPMN_M.VSSX",
+      "master": "Intermediate Event",
+      "semanticType": "process",
+      "category": "bpmn",
+      "priority": 2
+    },
+    {
+      "terms": ["pool", "泳道", "lane", "通道", "池"],
+      "stencil": "BPMN_M.VSSX",
+      "master": "Pool / Lane",
+      "semanticType": "container",
+      "category": "bpmn",
+      "priority": 1
+    },
+    {
+      "terms": ["sequence flow", "序列流", "顺序流"],
+      "stencil": "BPMN_M.VSSX",
+      "master": "Sequence Flow",
+      "semanticType": "connector",
+      "category": "bpmn",
+      "priority": 1
+    },
+    {
+      "terms": ["message flow", "消息流"],
+      "stencil": "BPMN_M.VSSX",
+      "master": "Message Flow",
+      "semanticType": "connector",
+      "category": "bpmn",
+      "priority": 2
+    },
+    {
+      "terms": ["association", "关联", "bpmn association"],
+      "stencil": "BPMN_M.VSSX",
+      "master": "Association",
+      "semanticType": "connector",
+      "category": "bpmn",
+      "priority": 2
+    },
+    {
+      "terms": ["collapsed subprocess", "折叠子流程"],
+      "stencil": "BPMN_M.VSSX",
+      "master": "Collapsed Sub-Process",
+      "semanticType": "process",
+      "category": "bpmn",
+      "priority": 2
+    },
+    {
+      "terms": ["expanded subprocess", "展开子流程"],
+      "stencil": "BPMN_M.VSSX",
+      "master": "Expanded Sub-Process",
+      "semanticType": "process",
+      "category": "bpmn",
+      "priority": 2
+    },
+    {
+      "terms": ["annotation", "批注", "文本批注", "text annotation", "注释"],
+      "stencil": "BPMN_M.VSSX",
+      "master": "Text Annotation",
+      "semanticType": "annotation",
+      "category": "bpmn",
+      "priority": 3
+    },
+    {
+      "terms": ["data object", "数据对象", "bpmn data"],
+      "stencil": "BPMN_M.VSSX",
+      "master": "Data Object",
+      "semanticType": "document",
+      "category": "bpmn",
+      "priority": 2
+    },
+    {
+      "terms": ["bpmn data store", "bpmn 数据存储"],
+      "stencil": "BPMN_M.VSSX",
+      "master": "Data Store",
+      "semanticType": "database",
+      "category": "bpmn",
+      "priority": 2
+    },
+    {
+      "terms": ["message", "消息", "bpmn message"],
+      "stencil": "BPMN_M.VSSX",
+      "master": "Message",
+      "semanticType": "document",
+      "category": "bpmn",
+      "priority": 3
+    },
+    {
+      "terms": ["external interactor", "外部交互方", "actor", "参与者", "用户", "user", "actor"],
+      "stencil": "DATFLO_M.VSSX",
+      "master": "External interactor",
+      "semanticType": "process",
+      "category": "dfd",
+      "priority": 1
+    },
+    {
+      "terms": ["data process", "数据流程", "dfd process", "数据处理"],
+      "stencil": "DATFLO_M.VSSX",
+      "master": "Data process",
+      "semanticType": "process",
+      "category": "dfd",
+      "priority": 1
+    },
+    {
+      "terms": ["dfd data store", "dfd 数据存储"],
+      "stencil": "DATFLO_M.VSSX",
+      "master": "Data store",
+      "semanticType": "database",
+      "category": "dfd",
+      "priority": 1
+    },
+    {
+      "terms": ["object", "对象", "dfd object"],
+      "stencil": "DATFLO_M.VSSX",
+      "master": "Object",
+      "semanticType": "process",
+      "category": "dfd",
+      "priority": 2
+    },
+    {
+      "terms": ["start state", "起始状态", "dfd start"],
+      "stencil": "DATFLO_M.VSSX",
+      "master": "Start state",
+      "semanticType": "start",
+      "category": "dfd",
+      "priority": 2
+    },
+    {
+      "terms": ["stop state", "停止状态", "dfd end", "终止状态"],
+      "stencil": "DATFLO_M.VSSX",
+      "master": "Stop state",
+      "semanticType": "end",
+      "category": "dfd",
+      "priority": 2
+    },
+    {
+      "terms": ["multiple process", "多流程"],
+      "stencil": "DATFLO_M.VSSX",
+      "master": "Multiple process",
+      "semanticType": "process",
+      "category": "dfd",
+      "priority": 3
+    },
+    {
+      "terms": ["entity relationship", "实体关系", "erd"],
+      "stencil": "DATFLO_M.VSSX",
+      "master": "Entity relationship",
+      "semanticType": "process",
+      "category": "dfd",
+      "priority": 2
+    },
+    {
+      "terms": ["rectangle", "矩形", "方框", "box", "长方形"],
+      "stencil": "BASIC_M.VSSX",
+      "master": "Rectangle",
+      "semanticType": "process",
+      "category": "basic",
+      "priority": 1
+    },
+    {
+      "terms": ["circle", "圆形", "圆"],
+      "stencil": "BASIC_M.VSSX",
+      "master": "Circle",
+      "semanticType": "process",
+      "category": "basic",
+      "priority": 1
+    },
+    {
+      "terms": ["ellipse", "椭圆", "椭圆形"],
+      "stencil": "BASIC_M.VSSX",
+      "master": "Ellipse",
+      "semanticType": "process",
+      "category": "basic",
+      "priority": 1
+    },
+    {
+      "terms": ["diamond", "菱形"],
+      "stencil": "BASIC_M.VSSX",
+      "master": "Diamond",
+      "semanticType": "decision",
+      "category": "basic",
+      "priority": 1
+    },
+    {
+      "terms": ["can", "圆柱", "圆柱形", "cylinder", "罐"],
+      "stencil": "BASIC_M.VSSX",
+      "master": "Can",
+      "semanticType": "database",
+      "category": "basic",
+      "priority": 1
+    },
+    {
+      "terms": ["parallelogram", "平行四边形"],
+      "stencil": "BASIC_M.VSSX",
+      "master": "Parallelogram",
+      "semanticType": "process",
+      "category": "basic",
+      "priority": 2
+    },
+    {
+      "terms": ["rounded rectangle", "圆角矩形"],
+      "stencil": "BASIC_M.VSSX",
+      "master": "Rounded Rectangle",
+      "semanticType": "process",
+      "category": "basic",
+      "priority": 2
+    },
+    {
+      "terms": ["vsm process", "vsm 流程", "value stream process"],
+      "stencil": "VSM_M.VSSX",
+      "master": "Process",
+      "semanticType": "process",
+      "category": "vsm",
+      "priority": 1
+    },
+    {
+      "terms": ["inventory", "库存", "vsm inventory"],
+      "stencil": "VSM_M.VSSX",
+      "master": "Inventory",
+      "semanticType": "database",
+      "category": "vsm",
+      "priority": 1
+    },
+    {
+      "terms": ["push arrow", "上推箭头", "推式"],
+      "stencil": "VSM_M.VSSX",
+      "master": "Push arrow",
+      "semanticType": "connector",
+      "category": "vsm",
+      "priority": 1
+    },
+    {
+      "terms": ["customer", "客户", "供应商", "supplier", "vsm customer"],
+      "stencil": "VSM_M.VSSX",
+      "master": "Customer/Supplier",
+      "semanticType": "process",
+      "category": "vsm",
+      "priority": 1
+    },
+    {
+      "terms": ["shipment", "运输", "发货", "shipment arrow"],
+      "stencil": "VSM_M.VSSX",
+      "master": "Shipment arrow",
+      "semanticType": "connector",
+      "category": "vsm",
+      "priority": 1
+    },
+    {
+      "terms": ["truck", "卡车", "运输卡车"],
+      "stencil": "VSM_M.VSSX",
+      "master": "Shipment truck",
+      "semanticType": "process",
+      "category": "vsm",
+      "priority": 2
+    },
+    {
+      "terms": ["production control", "生产控制"],
+      "stencil": "VSM_M.VSSX",
+      "master": "Production control",
+      "semanticType": "process",
+      "category": "vsm",
+      "priority": 1
+    },
+    {
+      "terms": ["kanban", "看板", "生产看板"],
+      "stencil": "VSM_M.VSSX",
+      "master": "Production kanban",
+      "semanticType": "document",
+      "category": "vsm",
+      "priority": 1
+    },
+    {
+      "terms": ["supermarket", "超市", "vsm supermarket"],
+      "stencil": "VSM_M.VSSX",
+      "master": "Supermarket",
+      "semanticType": "database",
+      "category": "vsm",
+      "priority": 2
+    },
+    {
+      "terms": ["fifo", "fifo lane", "fifo 通道"],
+      "stencil": "VSM_M.VSSX",
+      "master": "FIFO lane",
+      "semanticType": "process",
+      "category": "vsm",
+      "priority": 2
+    },
+    {
+      "terms": ["kaizen", "改善", "kaizen burst"],
+      "stencil": "VSM_M.VSSX",
+      "master": "Kaizen burst",
+      "semanticType": "process",
+      "category": "vsm",
+      "priority": 2
+    },
+    {
+      "terms": ["manual information", "人工信息"],
+      "stencil": "VSM_M.VSSX",
+      "master": "Manual information",
+      "semanticType": "connector",
+      "category": "vsm",
+      "priority": 3
+    },
+    {
+      "terms": ["electronic information", "电子信息"],
+      "stencil": "VSM_M.VSSX",
+      "master": "Electronic information",
+      "semanticType": "connector",
+      "category": "vsm",
+      "priority": 3
+    },
+    {
+      "terms": ["data table", "数据表", "模拟运算表"],
+      "stencil": "VSM_M.VSSX",
+      "master": "Data table",
+      "semanticType": "document",
+      "category": "vsm",
+      "priority": 3
+    }
+  ],
+  "categories": {
+    "flowchart": "Basic flowchart shapes (BASFLO_M.VSSX)",
+    "bpmn": "BPMN workflow shapes (BPMN_M.VSSX)",
+    "dfd": "Data flow diagram shapes (DATFLO_M.VSSX)",
+    "basic": "Basic geometric shapes (BASIC_M.VSSX)",
+    "vsm": "Value stream mapping shapes (VSM_M.VSSX)"
+  }
+}
